@@ -1,0 +1,82 @@
+body {
+    text-align: center;
+    color: rgb(189, 119, 33);
+    padding: 8%;
+    font-family: monospace;
+    font-size: large;
+    display: inline-block;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%; width: 100%;
+    left: 0; right: 0; top: 0;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background-color: #fff;
+    margin: 10px auto;
+    border-radius: 12px;
+    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    align-items: center;
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;    
+}
+
+.logo {
+    height: 40px;
+    cursor: pointer;
+}
+
+.nav-bar {
+    background-color: rgba(34, 33, 33, 0.508);
+    padding: 30% 10%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.navBarBtn{
+    background-color: #333;
+    color: azure;
+    font-family: monospace;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 12px;
+    border-color: brown;
+}
+
+.navBarBtn:hover{
+    background-color: #555;
+    border-color: rgb(220, 11, 11);
+}
+
+.btn {
+    background-color: #333;
+    border-radius: 10%;
+    color: white;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+    
+}
+
+.btn:hover{
+    background-color: #555;
+}

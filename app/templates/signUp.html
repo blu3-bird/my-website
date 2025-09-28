@@ -1,0 +1,65 @@
+{% extends "baseNew.html" %}
+
+        {% block title %} <title> Sign Up </title> {% endblock %}
+
+        {% block extra_css %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='signUp.css') }}">
+        {% endblock %}
+
+        {% block content %}
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+                </ul>
+        {% endif %}
+        {% endwith %}
+        <h2 class="heading">
+            Register by Email.
+        </h2>
+        <form method="POST" action="/signup">
+        <div class="form">    
+        <div align="center">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your Email Address.">
+        </div>
+
+        <div align="center">
+            <label for="firstName">First Name</label>
+            <input id="firstName" type="text" name="firstName" placeholder="Enter your First name">
+        </div>
+
+        <div align="center">
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" name="lastName" placeholder="Enter your last name.">
+        </div>
+
+        <div align="center">
+            <label for="password1">
+                Password
+            </label>
+            <input id="password1" name="password1" type="password" placeholder="Enter your Password.">
+        </div>
+        <div align="center">
+            <label for="password2">
+                Confirm your password.
+            </label>
+            <input id="password2" name="password2" type="password" placeholder="Enter your password again.">
+        </div>
+        <div align="center">
+            <label> 
+                <input type="radio" name="avatar" value="avatars/avatar1.jpg" required>
+                <img src="{{ url_for('static' , filename='avatars/avatar1.jpg') }}" alt="avatar 1" width="160" height="200">
+            </label>
+            <label>
+                <input type="radio" name="avatar" value="avatars/avatar2.png" required>
+                <img src="{{ url_for('static', filename='avatars/avatar2.jpg') }}" alt="Avatar2" width="160" height="200">
+            </label>
+        </div>
+        <div align="center">
+        <button type="submit" id="submit" class="btn" name="submit">Register</button>
+        </div>
+        </form>
+        {% endblock %}

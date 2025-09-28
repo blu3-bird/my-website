@@ -1,0 +1,44 @@
+{% extends 'baseNew.html' %}
+
+{% block title %} <title>Select song</title> {% endblock %}
+
+{% block extra_css %} 
+<link rel="stylesheet" href="{{ url_for('static' , filename='selectSong.css') }}">
+{% endblock %}
+
+{% block content %}
+
+        <div>
+
+        <h2 class="heading">Select a song to Practice Typing</h2>
+
+        <div class="controls">
+        <input type="text" class="search-bar" id="search-bar" placeholder="Search by author, genre or title">
+        <select id="sort-options" class="sort-btn">
+            <option value="title">Sort by Title</option>
+            <option value="author">Sort by Author</option>
+            <option value="genre">Sort by Genre</option>
+        </select>
+        </div>
+
+
+        <div id="songsContainer">
+            {% for song in songs %}
+            <div class="songCard" data-song-id="{{ song.id }}" data-title="{{ song.title }}" data-author="{{ song.author }}" data-genre="{{ song.genre }}">
+                <img src="{{ url_for('static' , filename=song.cover ) }}" alt="{{ song.title }}" width="100">
+                <p><b>{{ song.title }}</b></p>
+                <p>{{ song.author }}</p>
+                <p>{{ song.genre }}</p>
+                <button class="btn select-song-btn">Select </button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button class="btn" id="start-typing-btn">Start Typing</button>
+        </div>
+
+        </div>
+
+        <script src="{{ url_for('static' , filename='selectSong.js') }}"></script>
+{% endblock %}

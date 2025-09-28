@@ -1,0 +1,56 @@
+body {
+    background-color: bisque;
+    font-size: large;
+    font-family: monospace;
+    padding: 5%;
+    text-align: center;
+}
+
+.btn {
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px, 20px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.btn:hover{
+    background-color: #555;
+}
+
+.logout {
+    background-color: #a33;
+}
+
+.logout:hover {
+    background-color: #c44;
+}
+
+
+.tab-bar {
+    background: #333;
+    padding:10px 20px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.tab-bar a{
+    color: white;
+
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.tab-bar a:hover{
+    color: #ffcc00
+}
+
+.logo {
+    height: 60px;
+    cursor: pointer;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homepage</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    </head>
+    <body class="{{ theme }}">
+        <h1><b>This is a typing website where you can pratice typing in a cool way.</b></h1>
+        <h3>Hey there, this is you typing speed test.</h3>
+
+        <h4>Welcome to our website.</h4>
+        <a type="button" class="btn" href="/login">Login</a>
+        <a type="button" class="btn" href="/signup">New User.</a>
+        <a type="button" onclick="openModal('aboutMeModal')" class="btn"  id="about-me" >About Me</a>
+
+         <script src="{{ url_for('static', filename='home.js') }}"></script>
+    </body>
+</html>

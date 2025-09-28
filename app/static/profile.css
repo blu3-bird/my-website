@@ -1,0 +1,86 @@
+body {
+    background-color: bisque;
+    font-family: monospace;
+    font-size: larger;
+    display: inline-block;
+    transition: none;
+    text-align: center;
+}
+
+.modal{
+    display: none; /* keep it hidden until user clicks btn*/
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%; /* covers screen */
+
+    background: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* make sure it is above everything*/
+}
+
+.modal-content{
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px; /*adjust size*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    max-width: 90%;
+
+    /* this is part centers the box*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close{
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.avatar {
+    border-radius:  35px;
+
+    border-color: darkcyan;
+    box-shadow: #333;
+}
+
+.btn {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: inline-block;
+}
+
+.btn:hover{
+    background-color: #555;
+}
+
+#dashboard-btn{
+    background-color: cadetblue;
+}
+
+#logout-btn{
+    background-color: crimson;
+}
+
+#edit-profile-btn{
+    background-color:darkgreen;
+}
+
+#change-password{
+    background-color: rgb(42, 109, 111);
+}
+#delete-account{
+    background-color: red;
+}

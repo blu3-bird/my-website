@@ -1,0 +1,27 @@
+{% extends "baseNew.html" %}
+
+{% block title %} <title> Dashboard </title> {% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename= 'dashboard.css') }}">
+
+{% endblock %}
+
+{% block content %}
+        <nav class="tab-bar">
+            <a href="/typing">Typing Test</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </nav>
+
+
+        <h1>Welcome to our Typing website.</h1>
+        <h1>Hello 🎈 {{ current_user.firstName }} {{ current_user.lastName }} </h1>
+        <h3>To Start Typing, press this butt</h3>
+        <a href="/typing" class="btn">Start Typing</a>
+        <a href="/logout" class="btn">Logout</a>
+        <a href="/signup" class="btn">To create a new account.</a>
+        <a href="{{ url_for('views.songs') }}" class="btn" >Select song</a>
+    <script src="{{ url_for('static' , filename='dashboard.js') }}"></script>
+{% endblock %}

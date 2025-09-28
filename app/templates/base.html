@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}My App{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css' )}}">
+
+        {% block extra_css %}{% endblock %}
+        <script src="{{ url_for('static', filename='base.js') }}" defer></script>
+    </head>
+    <body style="font-family: {{ font_family or 'monospace' }}; font-size: {{ font_size or '16px' }};">
+        <!--Global NavBar-->
+        <nav class="navBar">
+            <a href="/" class="logo-link"><img src="{{ url_for('static', filename='avatars/logo2.jpg') }}" width="150" height="50" style="margin-top: 25px;"></a>
+            <a class="btn" href="/profile">Profile</a>
+
+            <a class="btn" href="/dashboard">Dashboard</a>
+
+            <button class="btn" id="themeBtn" onclick="openModal('themeBtnModal')">Theme🎈</button>
+        </nav>
+
+        <!--Theme Btn Modal-->
+
+        <div id="themeBtnModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('themeBtnModal')">&times;</span>
+
+                <form method="post" action="/theme" id="fontForm">
+
+                     <h3>Customize Your Web Page</h3>
+                <!--Theme SideBar-->
+                <div id="themeSidebar" class="sidebar" >
+                    <label for="themeSidebar">Customize Theme</label>
+                    <input type="range" min="1" max="3" value="1" id="themeSidebar" class="slideBar">
+                </div>
+
+                <!--Font Size Adjuster-->
+
+                <div id="fontSizeAdjuster" class="sidebar">
+                    <label for="fontSizeSidebar">Slide to Adjust the Font Size</label>
+                    <input type="range" min="12" max="22" value="1" id="fontSizeSidebar" name="fontSize">
+                </div>
+
+                <!--Font Family Selector-->
+                    <h3>Choose Font Style</h3>
+
+                    <div>
+                        <input type="radio" id="fontArial" value="Arial" name="fontFamily" >
+                        <label for="fontArial">Arial</label>
+                    </div>
+
+                    <div>
+                        <input id="fontCourier" type="radio" value="Courier" name="fontFamily">
+                        <label for="fontCourier">Courier</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontGeorgia" name="fontFamily" value="Georgia" >
+                        <label for="fontGeorgia">Georgia</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontTimesRoman" name="fontFamily" value="Times New Roman" checked>
+                        <label for="fontTimesRoman">Times Roman</label>                
+                    </div>
+
+                    <div id="previewText">
+                        <p>
+                         Hey!, {{current_user.firstName}} {{ current_user.lastName}}, This is our Typing Website 'Type Tunes.
+                        </p> 
+                    </div>
+
+                
+
+                <button type="submit" class="btn" id="themeSubmitBtn" name="themeSubmitBtn">Update Theme</button>
+                <button type="reset" class="btn" id="themeResetBtn" name="themeResetBtn">Reset Default</button>
+                <button type="button" class="btn" id="cancelThemeBtn" name="cancelThemeBtn" onclick="closeModal('themeBtnModal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

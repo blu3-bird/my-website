@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Bunny ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffb6f1, #ffd6e8);
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+    }
+    #startBtn, #replayBtn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      background: #ff4da6;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    #bunny {
+      position: absolute;
+      bottom: 50px;
+      font-size: 60px;
+      display: none;
+      animation: hop 1s infinite;
+    }
+    @keyframes hop {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+    #letter {
+      width: 200px;
+      height: 120px;
+      background: white;
+      border-radius: 10px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+    }
+    #countdown {
+      font-size: 40px;
+      color: #ff4da6;
+      display: none;
+      position: absolute;
+      top: 20%;
+    }
+    #message {
+      font-size: 24px;
+      color: #ff3385;
+      text-align: center;
+      display: none;
+      max-width: 80%;
+    }
+    .particle {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp 1.5s forwards;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="startBtn">Click Me!</button>
+  <div id="bunny">🐇</div>
+  <div id="countdown"></div>
+  <div id="letter">Dear Bunny 💌</div>
+  <div id="message"></div>
+  <button id="replayBtn" style="display:none;">Open Again</button>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c80fb2f88e.mp3?filename=romantic-piano-110624.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const bunny = document.getElementById('bunny');
+    const countdown = document.getElementById('countdown');
+    const letter = document.getElementById('letter');
+    const message = document.getElementById('message');
+    const replayBtn = document.getElementById('replayBtn');
+
+    let clicks = 0;
+
+    // Cursor heart effect
+    document.addEventListener('click', (e) => {
+      let heart = document.createElement('div');
+      heart.innerText = '💖';
+      heart.style.position = 'absolute';
+      heart.style.left = e.pageX + 'px';
+      heart.style.top = e.pageY + 'px';
+      heart.style.fontSize = '20px';
+      heart.style.pointerEvents = 'none';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1000);
+    });
+
+    startBtn.addEventListener('click', () => {
+      clicks++;
+      if (clicks < 4) {
+        bunny.style.display = 'block';
+        bunny.style.left = (50 + clicks*50) + 'px';
+      } else {
+        startBtn.style.display = 'none';
+        bunny.style.display = 'none';
+        startCountdown();
+      }
+    });
+
+    function startCountdown(){
+      let time = 3;
+      countdown.style.display = 'block';
+      countdown.innerText = time;
+      let interval = setInterval(() => {
+        time--;
+        countdown.innerText = time;
+        if(time === 0){
+          clearInterval(interval);
+          countdown.style.display = 'none';
+          letter.style.display = 'flex';
+        }
+      }, 1000);
+    }
+
+    letter.addEventListener('click', () => {
+      explode(letter);
+      letter.style.display = 'none';
+      showMessage();
+    });
+
+    function explode(element){
+      for(let i=0; i<30; i++){
+        let particle = document.createElement('div');
+        const symbols = ['💖','🌸','⭐'];
+        particle.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+        particle.className = 'particle';
+        particle.style.left = element.offsetLeft + element.offsetWidth/2 + 'px';
+        particle.style.top = element.offsetTop + element.offsetHeight/2 + 'px';
+        document.body.appendChild(particle);
+        setTimeout(()=>particle.remove(),1500);
+      }
+    }
+
+    function showMessage(){
+      message.innerHTML = "You are my favorite notification, my favorite person.<br><br>From your butler,<br>~Arson.";
+      message.style.display = 'block';
+      replayBtn.style.display = 'inline-block';
+    }
+
+    replayBtn.addEventListener('click', () => {
+      clicks = 0;
+      message.style.display = 'none';
+      replayBtn.style.display = 'none';
+      startBtn.style.display = 'inline-block';
+    });
+  </script>
+</body>
+</html>

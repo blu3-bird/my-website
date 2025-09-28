@@ -1,0 +1,204 @@
+
+        {% extends "baseNew.html" %}
+
+        {% block title %} <title> Profile </title> {% endblock %}
+
+        {% block extra_css %}
+        <link rel="stylesheet" href="{{ url_for('static' , filename='profile.css') }}">
+        <link
+            href="https://fonts.googleapis.com/css2?
+            family=Fira+Code&family=Source+Code+Pro&
+            family=Roboto&family=Open+Sans&
+            family=Merriweather&family=Lora&
+            display=swap"
+            rel="stylesheet">
+
+        {% endblock %}
+
+        
+        {% block content %}
+        <div id="primary-nav-bar" class="nav-bar">
+            <nav>
+                <a href="/dashboard" >Dashboard</a>
+                <a  onclick="openModal('themeBtnModal')">Customize Theme</a>
+                <a onclick="openModal('change-avatar')" id="change-avatar-btn"  >Change Avatar</a>
+            </nav>
+        </div>
+
+        <!--Customize Theme Logic-->
+
+        <div class="modal" id="themeBtnModal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('themeBtnModal')">&times;</span>
+
+                <form method="post" action="/theme" id="fontForm">
+                    
+                    <h3>Customize your Web page.</h3>
+
+                    <!--Theme Side Toggle btn-->
+
+                    <!--Font Size Adjuster-->
+
+                    <div id="fontSizeAdjuster" class="sidebar">
+                        <label for="fontSizeSideBar">Slide to Adjust the Font Size</label>
+                        <input type="range" min="12" max="36" value="16" step="1">
+                        <span id="fontSizeValue">16px</span>
+                    </div>
+
+                    <!--Font Family Selector-->
+
+                    <!--Fira Code , Source Code Pro, Roboto Mono, Open Sans, Work sans, Merriweather, lora-->
+
+                    <h3>Choose Font Style</h3>
+                    <div>
+                        <input type="radio" id="fontFiraCode" value="Fira Code" name="fontFamily" >
+                        <label for="fontFiraCode">Fira Code</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontSourceCodePro" value="Source Code Pro" name="fontFamily" >
+                        <label for="fontSourceCodePro">Source Code Pro</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontRobotoMono" name="fontFamily" value="Roboto Mono">
+                        <label for="fontRobotoMono">Roboto Mono</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontOpenSans" value="Open Sans" name="fontFamily">
+                        <label for="fontOpenSans">Open Sans</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontWorkSans" value="Work Sans" name="fontFamily">
+                        <label for="fontWorkSans">Work Sans</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="fontLora" value="lora" name="fontFamily">
+                        <label for="fontLora">Lora</label>
+                    </div>
+
+                    <div id="previewText">
+                        <p>
+                            Hey!, {{ current_user.firstName }} {{ current_user.lastName }}, This is preview of the fonts you have selected.
+                            <br>
+                            OH! Captain, My Captain
+                        </p>
+                    </div>
+
+                    <button type="submit" class="btn" id="themeSubmitBtn" name="themeSubmitBtn"> Update Theme </button>
+
+                    <button type="reset" class="btn" id="themeResetBtn" name="themeResetBtn">Reset Default</button>
+
+                    <button type="button" class="btn" id="themeCancelBtn" name="themeCancelBtn" onclick="closeModal('themeBtnModal')">Cancel</button>
+
+                </form>
+            </div>
+        </div>
+
+
+    <div class="profile-card">
+        <h1>Hello🎈 {{  current_user.firstName  }}!</h1>
+        <br>
+        
+        <h1> Your Name {{ current_user.firstName }} {{ current_user.lastName }}</h1>
+        <h1>Email address: {{ current_user.email }}</h1>
+        <h1>Member since: {{ current_user.date_created }} </h1>
+        <h1> User Id: {{ current_user.id }} </h1>
+        <img src="{{ url_for('static',  filename=current_user.avatar) }}" alt="avatar" width="160" height="200" style="border-radius: 50%; object-fit: cover;" class="avatar">
+        </div>
+        <br>
+        <button class="btn" id="dashboard-btn" href="/dashboard">Back to Dashboard</button>
+        <button class="btn" id="logout-btn" href="/logout">Logout</button>
+        <button onclick="openModal('editInfoModal')" class="btn" id="edit-profile-btn" href="editProfile.html">Edit Profile</button>
+        
+        <button class="btn" onclick="openModal('changePasswordModal')" id="change-password" href="changePassword.html">Change Password</button>
+        <button onclick="openModal('deletedAccountModal')" class="btn" id="delete-account" href="/">Delete Account</button>
+
+
+        <!--Edit info modal-->
+        <div id="editInfoModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <!--close button (the X)-->
+                <span class="close" onclick="closeModal('editInfoModal')">&times;</span>
+
+                <h3>Edit Info</h3>
+
+                <form method="POST" action="/edit_info">
+                    <label for="firstName">Fist Name</label>
+                    <input type="text" id="changedFirstName" name="changedFirstName" placeholder="First name" value="{{ current_user.firstName }}">
+                    <br>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="changedLastName" name="changedLastName" placeholder="Last Name" value="{{ current_user.lastName }}">
+                    <br>
+                    <label for="email">Email</label>
+                    <input type="email" id="changedInfoEmail" name="changedInfoEmail" placeholder="Email" value="{{ current_user.email}}">
+                    <br>
+                    <button id="edit-info-btn" class="btn" type="submit">Save Changes</button>
+                    <button type="button"class="btn" onclick="closeModal('editInfoModal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!--Change Password modal-->
+
+        <div id="changePasswordModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="close-btn" onclick="closeModal('changePasswordModal')">&times;</span>
+                <h2>Change your Password</h2>
+                <form method="post" action="/changePassword">
+                    <div id="password-error" style="color : red"></div>
+                    <label for="old-password">Old Password</label>
+                    <input type="password" id="old-password" name="old-password"  placeholder="Old Password" >
+<br>
+                    <label for="new-password1">New Password</label>
+                    <input type="password" id="newPassword1" name="new-password1" placeholder="New Password" >
+<br>
+                    <label for="new-password2">Confirm your password</label>
+                    <input type="password" id="newPassword2" name="new-password2" placeholder="Retype new Password">
+<br>
+                    <button type="submit" class="btn" id="change-password-btn">Save Password</button>
+                    <button type="button" class="btn" onclick="closeModal('changePasswordModal')">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!--Delete Btn modal-->
+        <div id="deletedAccountModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <form method="POST" action="/delete-account">
+                <span class="close" id="close-btn" onclick="closeModal('deletedAccountModal')">&times;</span>
+                <h3>Do You Really Want to Delete Your account?</h3>
+                <label for="password">
+                    <input type="password" name="deleteAccountPasswordField" id="deleteAccountPasswordField" placeholder="Type Your Current Password"> Type Your Current Password.
+                </label>
+                <button class="btn" type="submit" id="delete-account-btn" name="delete-account-btn">Yes</button>
+                <button class="btn" type="button" id="no-delete-account-btn" onclick="closeModal('deletedAccountModal')" name="no-delete-account-btn">No</button>
+                </form>
+            </div>
+        </div>
+
+        <!--Change Avatar Modal-->
+        <div id="change-avatar" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span onclick="closeModal('change-avatar')" class="close" id="close-btn">&times;</span>
+                <h3>Choose the Avatar of your choice.</h3>
+
+                <button type="button" class="avatarBtn" id="avatarChangebtn" onclick="loadAvatars('naruto')">Naruto</button>
+
+                <button type="button" class="avatarBtn" id="changeAvatar" onclick="loadAvatars('onePiece')">One Piece</button>
+
+                                <!--Avatar Grid-->
+                <form method="post" action="{{ url_for('auth.change_avatar') }}">                
+                    <div id="avatar-grid">
+                        <!--Avatars will appear here via JS-->
+                    </div>
+                        <button class="btn" type="submit" id="change-avatar-btn" name="change-avatar-btn" >Change Avatar</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='profile.js') }}"></script>
+        {% endblock %}

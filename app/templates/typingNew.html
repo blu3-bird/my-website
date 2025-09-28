@@ -1,0 +1,84 @@
+{% extends "baseNew.html" %}
+
+{% block title %} <title>Typing</title>{% endblock %}
+
+{% block extra_css %}
+
+<link href="{{ url_for('static' , filename='typingNew.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+
+    {% block content %}
+
+    <h2>{{ song.title }}</h2>
+
+    <!--Lyrics Container-->
+
+    <div id="lyrics-display" ></div>
+
+    <!--Typing box-->
+
+    <textarea id="typing-box" placeholder="Start typing here..." autofocus spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Typing box"></textarea>
+    
+
+
+    <div id="buttons">
+        <button type="submit" class="btn" id="submit-btn">Submit</button>
+        <button type="reset" class="btn" id="reset-btn">Reset</button>
+        <button type="button" class="btn" id="review-btn" hidden>Review Mistakes</button>
+    </div>
+
+    <!--Results-->
+
+    <div id="results" aria-live="polite">
+        <p>Live WPM: <span id="wpm">0</span></p>
+        <p>Time: <span id="time-taken">0:00</span></p>
+        <p>Accuracy: <span id="accuracy">0%</span></p>
+    </div>
+
+    <div id="song-player">
+        <audio src="song.mp3"></audio>
+        <button type="button" class="song-player-btn" id="song-play-btn">Play</button>
+        <button type="button" class="song-player-btn" id="song-pause-btn">Pause</button>
+    </div>
+
+    <div class="bottom-btn" >
+        <a class="btn" href="{{ url_for('views.dashboard') }}">Back to dashboard</a>
+        <a class="btn" href="{{ url_for('views.songs') }}">want to select another song?</a>
+    </div>
+
+    <!--Hidden Lyrics source(fixed stray >)-->
+    
+    <div id="lyrics-data" style="display: none">{{ song.lyrics|e }}></div>
+
+    <!--Review Modal (hidden)-->
+
+    <div id="review-backdrop" class="modal-backdrop" hidden>
+        <div id="review-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="review-title" hidden>
+            <div class="modal-header">
+                <h3 id="review-title">
+                    Mistake Review
+                </h3>
+                <button type="button" class="modal-close" id="review-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="diff-container">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="prev-mistake">Previous</button>
+                <button type="button" class="btn" id="next-mistakes">Next</button>
+                <button type="button" class="btn" id="toggle-only-mistakes">Show only mistakes</button>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+
+    {% block extra_js %}
+
+    <script src="{{ url_for('static', filename='typingNew.js') }}"></script>
+    {% endblock %}
+

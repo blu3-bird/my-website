@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% block title %}My App{% endblock %}
+
+        
+         <link rel="stylesheet" href="{{ url_for('static' , filename='baseNew.css') }}" >
+        {% block extra_css %}{% endblock %}
+    </head>
+
+    <body style="font-family: {{ font_family }}; font-size: {{ font_size }};" >
+        
+        <header class="site-header">
+            <nav class="nav-bar" id="baseNavBar">
+                <div class="logo-container">
+                <a href="/" target="_blank" >
+                    <img src="{{ url_for('static', filename='avatars/logo2.jpg') }}" alt="Website Logo" width="40" class="logo">
+                </a>
+                </div>
+                {% if current_user.is_authenticated %}
+                <div class="avatar-container">
+                <a href="/profile">
+                    <img src="{{ url_for('static' , filename=current_user.avatar) }}" alt="Profile Icon" class="avatar">
+                </a>
+                </div>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main class="site-content">
+            {% block content %} 
+
+            {% endblock %}
+        </main>
+
+
+        <footer>
+            <nav>
+                <a onclick="openModal('aboutMeModal')" class="btn" >About Me</a>
+
+                <a href="/" class="btn" id="baseFooterBacktoHomeBtn">Back to Home</a>
+            </nav>
+        </footer>
+
+            <!--About Me modal-->
+
+
+        <div class="modal" style="display: none;" id="aboutMeModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('aboutMeModal')">&times;</span>
+             <div class="aboutMeContainer">
+        
+            <h3 >About Me</h3>
+            <p class="breadcrump"> Home ~ About Me</p>
+        
+
+        <div class="profilePhotoContainer">
+            <img src="{{ url_for('static' , filename='avatars/profile.png') }}"  alt="Profile Photo" class="profilePhoto">
+        </div>
+
+        <div class="aboutMeWebsiteInfo">
+            <p>
+                <b>Types Tunes</b> is my first website, that I have hosted on my online server. 
+                
+                Here on this website, You can practice typing on song lyrics.
+            </p>
+        </div>
+
+        <div class="aboutMeInfo">
+            <p>
+                Hey, This is <strong>Pardeep Singh</strong>. And this is all bout me. 
+                some ppl call me <b>Arson</b> and my ppl calls me <b>blueBird</b>.
+            </p>
+        </div>
+
+        <div class="contactInfoContainer">
+            <p class="heading">Name</p>
+            <p class="input">Pardeep Singh</p>
+
+            <p class="heading">Email Address:</p>
+            <p class="input">youaregifted@myyaho.com</p>
+
+            <p class="heading">My Github Account:</p>
+            <p class="input">blu3-bird</p> <!--add link to your git hub account-->
+
+            <p class="heading">Insta Id:</p>
+            <p class="input">blueBird</p> <!--add link to your insta profile-->
+        </div>
+
+        </div>
+        </div>
+        </div>
+
+        </footer>
+
+        <script src="{{ url_for('static', filename='baseNew.js') }}"></script>
+        
+        {% block extra_js %} {% endblock %}
+    </body>
+</html>

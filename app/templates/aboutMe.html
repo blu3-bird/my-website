@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About Me</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='aboutMe.css')}}">
+    </head>
+    <body>
+
+        <span class="close" onclick="closeModal('aboutMeModal')">&times;</span>
+        
+        <div>
+            <h3>About Me</h3>
+            <br>
+            <p> <a href="/">Home</a>~ Aboue Me</p>
+        </div>
+
+        <div class="profilePhotoContainer">
+            <img src="{{ url_for('static' , filename='profile.png') }}"  alt="Profile Photo" class="profilePhoto">
+        </div>
+
+        <div class="aboutMeWebsiteInfo">
+            <h4>
+                'Types Tunes' is my first website, that I have hosted on my online server. 
+                <br> 
+                Here on this website, You can practice typing on song lyrics.
+            </h4>
+        </div>
+
+        <div class="aboutMeInfo">
+            <p>
+                Hey, This is Pardeep Singh. And this is all bout me. 
+                some ppl call me Arson and my ppl call me blueBird.
+            </p>
+        </div>
+
+        <div class="contactInfoContainer">
+            <p class="heading">Name</p>
+            <br>
+            <p class="input">Pardeep Singh</p>
+
+            <p class="heading">Email Address:</p>
+            <br>
+            <p class="input">youaregifted@myyaho.com</p>
+            
+            <p class="headin">My Github Account:</p>
+            <br>
+            <p class="input">blue-bird</p> <!--add link to your git hub account-->
+
+            <p class="heading">Insta Id:</p>
+            <p class="input">blueBird</p> <!--add link to your insta profile-->
+        </div>
+
+    </body>
+</html>

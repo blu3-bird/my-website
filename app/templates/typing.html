@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            Typing Test
+        </title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='typing.css') }}">
+
+    </head>
+    <body>
+        <h2>Typing Speed Test.</h2>
+
+        <div id="target-text"></div>
+        
+        <div id="live-feedback"></div>
+        <textarea id="typing-input" rows="5" cols="50" placeholder="Start Typing Here."></textarea>
+
+        <button class="btn" id="submit-btn">Submit</button>
+        <button class="btn" id="quit-btn" href="/typing">Quit</button>
+        <button class="btn" id="dashboard-btn" href="/dashboard">Back to Dashboard</button>
+
+        <p id="result"></p>
+
+        <script>
+
+
+            const targetText = '{{ target|tojson }}'.replace(/^"|"$/g, '');
+            const targetWords = targetText.trim().split(/\s+/);
+
+            document.getElementById("target-text").textContent = targetText;
+
+            const typingInput = document.getElementById("typing-input");
+
+            const quitBtn = document.getElementById("quit-btn");
+
+            const dashboardBtn = document.getElementById("dashboard-btn");
+
+            const feedback = document.getElementById("live-feedback");
+
+            const result = document.getElementById("result");
+
+            const submitBtn = document.getElementById("submit-btn");
+            
+
+            let started = false;
+            let startTime;
+
+            typingInput.addEventListener("input", () =>{
+                const typed = typingInput.value;
+
+                if(!started && typed.length > 0){
+                    started = true;
+                    startTime=new Date().getTime();
+                }
+                updateFeedback(typed);
+            });
+
+            function restartTest() {
+                typingInput.value = "";
+                result.innerText = "";
+                feedback.innerHTML = "";
+                started = false;
+                startTime = null;
+                typingInput.disabled = false;
+                submitBtn.disabled = false;
+                updateFeedback("");
+            }
+
+
+            submitBtn.addEventListener("click", () => {
+                finishTest();
+            });
+
+            quitBtn.addEventListener("click", () => {
+                restartTest();
+            });
+
+            dashboardBtn.addEventListener("click", () => {
+                window.location.href = "/dashboard"
+            });
+
+            function finishTest() {
+                const typed = typingInput.value;
+                if(!started) return;
+
+                const endTime = new Date().getTime();
+                const timeTaken = (endTime - startTime) / 1000;
+
+                const wpm = Math.round((typed.length / 5) / (timeTaken / 60));
+
+                const typedWords = typed.trim().split(/\s+/);
+                let correctWords = 0;
+
+                for(let i = 0; i < Math.min(typedWords.length, targetWords.length); i++) {
+                if (typedWords[i] === targetWords[i]) {
+                    correctWords++;
+                }
+            }
+            
+            let accuracy = (correctWords /targetWords.length) * 100;
+            accuracy = Math.round(accuracy);
+
+            result.innerText = `Time: ${timeTaken.toFixed(2)}s | WPM: ${wpm} | Accuracy: ${accuracy}`;
+
+            typingInput.disabled = true;
+            submitBtn.disabled = true;
+        }
+        function updateFeedback(typed) {
+            let html = "";
+            const typedChars = typed.trim().split(/\s+/);
+
+            for (let i = 0; i < targetWords.length; i++) {
+
+                if ( i >= typedChars.length) {
+                    html += `<span style="color: gray;">${escape(targetWords[i])}</span> `;
+                } else if (typedChars[i]=== targetText[i]) {
+                    html+= `<span style= "color: black;">${escape(targetWords[i])}</span> `;
+                } else {
+                    html+= `<span style = "color: red;">${escape(targetWords[i])}</span> `;
+                }
+            }
+            feedback.innerHTML = html;
+    }
+
+    function escape(c) {
+        return c 
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+    }
+
+
+updateFeedback("");
+        </script>
+    </body>
+</html>
