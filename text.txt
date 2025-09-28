@@ -1,0 +1,4 @@
+The quick brown fox jumps over the lazy dog.
+Typing fast takes practice and patience.
+This is a simple typing speed test.
+Python is a powerful and easy-to-learn language.
